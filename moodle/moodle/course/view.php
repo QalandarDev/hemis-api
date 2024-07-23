@@ -24,6 +24,7 @@
 
 require_once('../config.php');
 require_once('lib.php');
+require_once($CFG->libdir.'/hemis/dashboard.php');
 require_once($CFG->libdir.'/completionlib.php');
 
 redirect_if_major_upgrade_required();
@@ -345,13 +346,16 @@ $displaysection = $section;
 
 if($filter=='resource'){
     echo "hello=".$filter;
+    preg_match('/subject=(\d+);/', $course->shortname, $matches);
+
+    $semester=getSemesterCode();
+    $resources=getEducationResources($semester,$matches[1]);
+    echo $OUTPUT->render_from_template('core_course/hemis-resource',['resources'=>$resources]);
 }else{
 // Include course AJAX.
     include_course_ajax($course, $modnamesused);
     require($CFG->dirroot .'/course/format/'. $course->format .'/format.php');
-
 }
-
 // Include the actual course format.
 // Content wrapper end.
 

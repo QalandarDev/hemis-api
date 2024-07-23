@@ -4004,71 +4004,69 @@ function authenticate_user_login(
     foreach ($auths as $auth) {
         $authplugin = get_auth_plugin($auth);
         // On auth fail fall through to the next plugin.
-//        if (!$authplugin->user_login($username, $password)) {
-//            continue;
-//        }
+        if (!$authplugin->user_login($username, $password)) {
 
+            $curl = curl_init();
 
-        $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://student.mamunedu.uz/rest/v1/auth/login',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => json_encode([
+                    'login' => $username,
+                    'password' => $password,
+                ]),
+                CURLOPT_HTTPHEADER => array(
+                    'sec-ch-ua: "Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+                    'accept: application/json',
+                    'Content-Type: application/json',
+                    'Referer: https://student.mamunedu.uz/rest/docs',
+                    'sec-ch-ua-mobile: ?0',
+                    'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+                    'sec-ch-ua-platform: "Linux"',
+                    'Cookie: _csrf-frontend=f51af3d5dc78aa9415773cbbff62dbf03e7f08e6bd977cbf13c01e0363c29a1ea%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%22Cv_t0caPLRe2jETT2EOfxbZ77rGLHnaJ%22%3B%7D; frontend=vlpcrt3tmcq3lq65j61pp01vni'
+                ),
+            ));
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://student.mamunedu.uz/rest/v1/auth/login',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode([
-                'login' => $username,
-                'password' => $password,
-            ]),
-            CURLOPT_HTTPHEADER => array(
-                'sec-ch-ua: "Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-                'accept: application/json',
-                'Content-Type: application/json',
-                'Referer: https://student.mamunedu.uz/rest/docs',
-                'sec-ch-ua-mobile: ?0',
-                'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-                'sec-ch-ua-platform: "Linux"',
-                'Cookie: _csrf-frontend=f51af3d5dc78aa9415773cbbff62dbf03e7f08e6bd977cbf13c01e0363c29a1ea%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%22Cv_t0caPLRe2jETT2EOfxbZ77rGLHnaJ%22%3B%7D; frontend=vlpcrt3tmcq3lq65j61pp01vni'
-            ),
-        ));
+            $response = curl_exec($curl);
+            if (curl_getinfo($curl, CURLINFO_HTTP_CODE) != 200) {
+                continue;
+            } else {
+                $response = json_decode($response, true);
+                $_SESSION['HEMIS']['access_token'] = $response['data']['token'];
 
-        $response = curl_exec($curl);
-        if(curl_getinfo($curl, CURLINFO_HTTP_CODE) != 200) {
-            continue;
-        }else{
-            $response=json_decode($response,true);
-            $_SESSION['HEMIS']['access_token']=$response['data']['token'];
+                $url = 'https://student.mamunedu.uz/rest/v1/account/me';
+                $authorization = 'Bearer ' . $_SESSION['HEMIS']['access_token'];
 
-            $url = 'https://student.mamunedu.uz/rest/v1/account/me';
-            $authorization = 'Bearer '.$_SESSION['HEMIS']['access_token'];
+                $ch = curl_init();
 
-            $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                    'accept: application/json',
+                    'Authorization: ' . $authorization
+                ]);
 
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'accept: application/json',
-                'Authorization: ' . $authorization
-            ]);
+                $response = curl_exec($ch);
 
-            $response = curl_exec($ch);
-
-            if (!curl_errno($ch)) {
-                $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                if ($httpcode == 200) {
-                    $data = json_decode($response, true);
-                    $_SESSION['HEMIS']['student']=$data['data'];
-                } else {
-                    echo "HTTP Response Code: " . $httpcode;
+                if (!curl_errno($ch)) {
+                    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                    if ($httpcode == 200) {
+                        $data = json_decode($response, true);
+                        $_SESSION['HEMIS']['student'] = $data['data'];
+                    } else {
+                        echo "HTTP Response Code: " . $httpcode;
+                    }
                 }
+                curl_close($ch);
             }
-            curl_close($ch);
+            curl_close($curl);
         }
-        curl_close($curl);
         // Before performing login actions, check if user still passes password policy, if admin setting is enabled.
         if (!empty($CFG->passwordpolicycheckonlogin)) {
             $errmsg = '';
