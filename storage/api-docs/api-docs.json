@@ -1,0 +1,61 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel API Documentation",
+        "description": "API documentation for Laravel application",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/data": {
+            "get": {
+                "tags": [
+                    "DATA"
+                ],
+                "summary": "Return data",
+                "description": "Return data desc",
+                "operationId": "getData",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of posts."
+                    }
+                }
+            }
+        },
+        "/api/v1/data/groups": {
+            "get": {
+                "tags": [
+                    "DATA"
+                ],
+                "summary": "Return group list",
+                "description": "Return data desc",
+                "operationId": "getGroupList",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of posts."
+                    }
+                }
+            }
+        },
+        "/api/v1/data/students": {
+            "get": {
+                "tags": [
+                    "DATA"
+                ],
+                "summary": "Return student list",
+                "description": "Return data desc",
+                "operationId": "getStudentList",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of posts."
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "DATA",
+            "description": "DATA"
+        }
+    ]
+}

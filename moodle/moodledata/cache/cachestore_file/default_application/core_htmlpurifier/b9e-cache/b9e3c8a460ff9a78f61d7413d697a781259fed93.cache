@@ -1,0 +1,1 @@
+s:174:"<strong>Stack trace: </strong> <ul style="text-align:left;"><li>line 184 of /my/index.php: TypeError thrown</li><li>line 184 of /my/index.php: call to json_decode()</li></ul>";

@@ -1,0 +1,1 @@
+s:291:"<strong>Stack trace: </strong> <ul style="text-align:left;"><li>line 416 of /auth/oauth2/classes/auth.php: TypeError thrown</li><li>line 416 of /auth/oauth2/classes/auth.php: call to print_r()</li><li>line 55 of /auth/oauth2/login.php: call to auth_oauth2\auth-&gt;complete_login()</li></ul>";

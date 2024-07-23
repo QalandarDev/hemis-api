@@ -1,0 +1,205 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template my/hemis
+
+    Simple dropdown for the my/courses page
+
+    Example context (json):
+    {
+        "newcourseurl": "https://moodle.test/course/edit.php?category=1",
+        "manageurl": "https://moodle.test/course/management.php?categoryid=1",
+        "courserequesturl": "https://moodle.test/course/request.php?categoryid=1"
+    }
+}}
+<style>
+    .widget-user .widget-user-header {
+        padding: 20px;
+        height: 120px;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+    }
+
+    .bg-blue {
+        background-color: #0073b7 !important;
+    }
+
+    .bg-red, .bg-yellow, .bg-aqua, .bg-blue, .bg-light-blue, .bg-green, .bg-navy, .bg-teal, .bg-olive, .bg-lime, .bg-orange, .bg-fuchsia, .bg-purple, .bg-maroon, .bg-black, .bg-red-active, .bg-yellow-active, .bg-aqua-active, .bg-blue-active, .bg-light-blue-active, .bg-green-active, .bg-navy-active, .bg-teal-active, .bg-olive-active, .bg-lime-active, .bg-orange-active, .bg-fuchsia-active, .bg-purple-active, .bg-maroon-active, .bg-black-active, .callout.callout-danger, .callout.callout-warning, .callout.callout-info, .callout.callout-success, .alert-success, .alert-danger, .alert-error, .alert-warning, .alert-info, .label-danger, .label-info, .label-warning, .label-primary, .label-success, .modal-primary .modal-body, .modal-primary .modal-header, .modal-primary .modal-footer, .modal-warning .modal-body, .modal-warning .modal-header, .modal-warning .modal-footer, .modal-info .modal-body, .modal-info .modal-header, .modal-info .modal-footer, .modal-success .modal-body, .modal-success .modal-header, .modal-success .modal-footer, .modal-danger .modal-body, .modal-danger .modal-header, .modal-danger .modal-footer {
+        color: #fff !important;
+    }
+
+    .bg-red, .callout.callout-danger, .alert-danger, .alert-error, .label-danger, .modal-danger .modal-body {
+        background-color: #dd4b39 !important;
+    }
+
+    .badge {
+        display: inline-block;
+        min-width: 10px;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: #777777;
+        border-radius: 10px;
+    }
+
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+    }
+
+    .nav-stacked > li > a {
+        border-radius: 0;
+        border-top: 0;
+        border-left: 3px solid transparent;
+        color: #444;
+        text-decoration: none;
+    }
+
+    .nav-stacked > li > a:hover {
+        border-color: green;
+    }
+
+    .box .nav-stacked > li {
+        border-bottom: 1px solid #f4f4f4;
+        margin: 0;
+    }
+
+    .nav-stacked > li {
+        float: none;
+    }
+
+    .nav > li {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+
+    .nav-stacked > li + li {
+        margin-top: 2px;
+        margin-left: 0;
+    }
+
+    .pull-right {
+        float: right !important;
+    }
+
+</style>
+<section class="content">
+    <div id="attendance-grid" data-pjax-container="">
+        <div class="info-box box-mini" hidden="">
+            <div class="row">
+                <div class="col-sm-6">
+                    <span class="info-box-icon bg-green"><i class="fa fa-files-o"></i></span>
+                    <div class="info-box-content ">
+
+                <span class="info-box-number">
+                        IS 23-25                                    </span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="info-box-content no-margin text-right text-center-sm">
+                        <label class="hidden visible-xs plabel">Semestr</label>
+                        <ul class="pagination pagination-sm psemester ">
+                            <li class=" hidden-xs"><a href="#" class="plabel">Semestr</a></li>
+                            <li class="">
+                                <a href="/education/subjects?semester=11">1</a>
+                            </li>
+                            <li class="active">
+                                <a href="/education/subjects?semester=12">2</a>
+                            </li>
+                            <li class="">
+                                <a href="/education/subjects?semester=13">3</a>
+                            </li>
+                            <li class="">
+                                <a href="/education/subjects?semester=14">4</a>
+                            </li>
+                            <li class="">
+                                <a href="/education/subjects?semester=15">5</a>
+                            </li>
+                            <li class="">
+                                <a href="/education/subjects?semester=16">6</a>
+                            </li>
+                            <li class="">
+                                <a href="/education/subjects?semester=17">7</a>
+                            </li>
+                            <li class="">
+                                <a href="/education/subjects?semester=18">8</a>
+                            </li>
+                            <li class="">
+                                <a href="/education/subjects?semester=19">9</a>
+                            </li>
+                            <li class="">
+                                <a href="/education/subjects?semester=20">10</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {{#courses}}
+                <div class="col col-md-6">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-blue">
+                            <h5 class="widget-user-username">{{name}}</h5>
+                            <h6 class="widget-user-desc">
+                                {{subjectType}} |
+                                {{total_acload}} soat | {{credit}}.0 kredit </h6>
+                        </div>
+                        <div class="box-footer no-padding">
+                            <ul class="nav nav-stacked">
+                                <li>
+                                    <a href="/course/view.php?id={{course_id}}&filter=resource" data-pjax="0">
+                                    Resurslar soni
+                                    <span class="pull-right badge bg-blue">
+                                    {{resources_count}}
+                                    </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" data-pjax="0">
+                                        Topshiriqlar soni <span class="pull-right badge bg-red">
+                                        0                                        /
+                                        0                                    </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" data-pjax="0">
+                                        Mavzulashtirilgan testlar <span class="pull-right badge bg-red">
+                                                0                                                /
+                                                0                                            </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </div>
+            {{/courses}}
+        </div>
+    </div>
+</section>

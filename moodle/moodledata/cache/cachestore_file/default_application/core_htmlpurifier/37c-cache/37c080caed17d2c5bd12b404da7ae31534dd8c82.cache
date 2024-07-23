@@ -1,0 +1,1 @@
+s:319:"<strong>Stack trace: </strong> <ul style="text-align:left;"><li>line 23 of /lib/hemis/dashboard.php: TypeError thrown</li><li>line 23 of /lib/hemis/dashboard.php: call to array_values()</li><li>line 27 of /lib/hemis/dashboard.php: call to {closure}()</li><li>line 194 of /my/index.php: call to makeDashboard()</li></ul>";
