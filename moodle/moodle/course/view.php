@@ -345,15 +345,55 @@ $sections = $modinfo->get_section_info_all();
 $displaysection = $section;
 
 if($filter=='resource'){
-    echo "hello=".$filter;
     preg_match('/subject=(\d+);/', $course->shortname, $matches);
-
     $semester=getSemesterCode();
     $resources=getEducationResources($semester,$matches[1]);
     echo $OUTPUT->render_from_template('core_course/hemis-resource',['resources'=>$resources]);
-}else{
+}elseif($filter=="video"){
+    $data=get_coursemodules_in_course('url',$course->id);
+    $data=array_values(json_decode(json_encode($data),true));
+    print_r(get_course_mods($course->id));
+    print_r($mods[689]->get_modinfo());
+    echo $OUTPUT->render_from_template('core_courseformat/local/content',[
+        'sections'=>[
+            [
+                'id'=>1,
+                'header'=>[
+                    'name'=>"Videos",
+                    'title'=>'Videos',
+                    'url'=>'#'
+                ],
+                'cmlist'=>[
+                    'cms'=>[
+                        [
+                            'cmitem'=>[
+                                'cmformat'=>[
+                                    'cmname'=>[
+                                        'url'=>'#',
+                                        'activityname'=>[
+                                            'displayvalue'=>'11',
+                                        ]
+                                    ],
+                                    'hasname'=>true
+                                ],
+                                'cmname'=>'99555',
+                            ],
+                            'id'=>99,
+                            'module'=>'forum',
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ]);
+//    echo $OUTPUT->render_from_template('core_course/hemis-videos',['videos'=>array_values($data)]);
+}
+else{
+//    print_r(get_coursemodules_in_course('url',$course->id));
 // Include course AJAX.
     include_course_ajax($course, $modnamesused);
+    //core_courseformat/local/courseindex/cm
+
     require($CFG->dirroot .'/course/format/'. $course->format .'/format.php');
 }
 // Include the actual course format.

@@ -29,7 +29,9 @@ function makeDashboard($semester = 12, $userid)
         return @array_values(get_courses_search(['shortname' => "subject=" . $subject . ";"], 'id', 1, 1, $totalcount))[0]->id ?? 0;
     };
     $subjects = getEducationSubjectList($semester);
-    $optimizedSubjects = array_map(function ($subjectData) use ($semester, $courseId) {
+    $optimizedSubjects = array_map(/**
+     * @throws coding_exception
+     */ function ($subjectData) use ($semester, $courseId) {
         return [
             'id' => $subjectData['curriculumSubject']['subject']['id'],
             'name' => $subjectData['curriculumSubject']['subject']['name'],
@@ -37,7 +39,8 @@ function makeDashboard($semester = 12, $userid)
             'subjectType' => $subjectData['curriculumSubject']['subjectType']['name'],
             'credit' => $subjectData['curriculumSubject']['credit'],
             'resources_count' => getEducationResourcesCount($semester, $subjectData['curriculumSubject']['subject']['id']),
-            'course_id' => $courseId($subjectData['curriculumSubject']['subject']['id'])
+            'videos_count'=>count(get_coursemodules_in_course('url',$courseId($subjectData['curriculumSubject']['subject']['id']))),
+            'course_id' => $courseId($subjectData['curriculumSubject']['subject']['id']),
         ];
     }, $subjects);
     return $optimizedSubjects;

@@ -186,10 +186,10 @@ if ($userid) {
             'shortname' => $course->shortname,
         ];
     },$courses);
-
     $hemis = @$_SESSION['HEMIS'];
     if ($hemis) {
         $semesterCode = getSemesterCode();
+//        echo $semesterCode;
         echo $OUTPUT->render_from_template('my/hemis', ['courses'=>makeDashboard($semesterCode,$semesterCode)]);
     }
 

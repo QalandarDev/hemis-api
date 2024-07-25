@@ -257,6 +257,7 @@ class renderer_base {
             // This is a named templatable.
             // Fetch the template name from the get_template_name function instead.
             // Note: This has higher priority than the guessed template name.
+
             return $this->render_from_template(
                 $widget->get_template_name($this),
                 $widget->export_for_template($this)
@@ -264,6 +265,7 @@ class renderer_base {
         }
 
         if ($widget instanceof templatable) {
+
             // Guess the templat ename based on the class name.
             // Note: There's no benefit to moving this aboved the named_templatable and this approach is more costly.
             $component = array_shift($classparts);
@@ -274,6 +276,7 @@ class renderer_base {
             $context = $widget->export_for_template($this);
             return $this->render_from_template($template, $context);
         }
+
         throw new coding_exception("Can not render widget, renderer method ('{$rendermethod}') not found.");
     }
 

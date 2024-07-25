@@ -1,14 +1,13 @@
 {{!
-    @template core_course/hemis-resource
+    @template core_course/hemis-videos
 
     This template renders an course card item loading placeholder for multiple blocks.
 
     Example context (json):
     {}
 }}
-<li id="section-1" class="section course-section main  clearfix
-
-                            " data-sectionid="1" data-sectionreturnid="" data-for="section" data-id="679"
+<li id="section-1" class="section course-section main  clearfix" data-sectionid="1" data-sectionreturnid=""
+    data-for="section" data-id="679"
     data-number="1" data-indexed="true">
     <div class="section-item">
         <div class="course-section-header d-flex" data-for="section_title" data-id="679" data-number="1">
@@ -38,7 +37,7 @@
                 </a>
                 <h3 class="h4 sectionname course-content-item d-flex align-self-stretch align-items-center mb-0"
                     id="sectionid-679-title" data-for="section_title" data-id="679" data-number="1">
-                    <a href="#">Resources</a>
+                    <a href="#">Video darslar</a>
                 </h3>
             </div>
             <div data-region="sectionbadges" class="sectionbadges d-flex align-items-center">
@@ -50,41 +49,47 @@
                 </div>
             </div>
             <ul class="section m-0 p-0 img-text  d-block " data-for="cmlist">
-                {{#resources}}
-                    {{#files}}
-                    <li class="activity activity-wrapper resource modtype_resource  hasinfo " id="module-680"
-                        data-for="cmitem" data-id="680" data-indexed="true">
-                        <div class="activity-item focus-control " data-activityname="demo1" data-region="activity-card">
-                            <div class="activity-grid ">
-                                <div
-                                    class="activity-icon activityiconcontainer smaller content  courseicon align-self-start mr-2">
-                                    <img
-                                        src="/theme/image.php/boost/core/1721584926/f/pdf?filtericon=1"
-                                        class="activityicon " data-region="activity-icon" data-id="680" alt="">
+                {{#videos}}
+                        <li class="activity activity-wrapper url modtype_url  hasinfo " id="module-681"
+                            data-for="cmitem"
+                            data-id="681" data-indexed="true">
+                            <div class="activity-item focus-control " data-activityname="Video darslar 1"
+                                 data-region="activity-card">
+                                <div class="bulkselect d-none" data-for="cmBulkSelect">
+                                    <input id="cmCheckbox681" type="checkbox" data-id="681"
+                                           data-action="toggleSelectionCm"
+                                           data-bulkcheckbox="1" disabled="">
+                                    <label class="sr-only" for="cmCheckbox681">
+                                        Select activity Video darslar 1
+                                    </label>
                                 </div>
-                                <div class="activity-name-area activity-instance d-flex flex-column mr-2">
-                                    <div class="activitytitle  modtype_resource position-relative align-self-start">
-                                        <div class="activityname">
-                                            <a href={{url}}
-                                               class=" aalink stretched-link" onclick=""> <span
-                                                class="instancename">{{name}}<span class="accesshide "> File</span></span>
-                                            </a>
-                                            <span class="ml-1">
-                                                                                                                <span
-                                                                                                                    class="activitybadge badge rounded-pill badge-none">
-                                                                                                                        PDF
-                                                                                                                </span>
-                                                                                                            </span>
+
+                                <div class="activity-grid ">
+
+                                    <div
+                                        class="activity-icon activityiconcontainer smaller content  courseicon align-self-start mr-2">
+                                        <img
+                                            src="/theme/image.php/boost/url/1721584926/monologo?filtericon=1"
+                                            class="activityicon " data-region="activity-icon" data-id="681" alt="">
+                                    </div>
+
+                                    <div class="activity-name-area activity-instance d-flex flex-column mr-2">
+                                        <div class="activitytitle  modtype_url position-relative align-self-start">
+                                            <div class="activityname">
+                                                <a href="/mod/url/view.php?id={{id}}&redirect=true"
+                                                   class=" aalink stretched-link" onclick=""> <span
+                                                    class="instancename">{{name}}<span
+                                                    class="accesshide "> URL</span></span> </a>
+
+                                            </div>
                                         </div>
                                     </div>
+
+
                                 </div>
-
-
                             </div>
-                        </div>
-                    </li>
-                    {{/files}}
-                {{/resources}}
+                        </li>
+                {{/videos}}
             </ul>
 
         </div>

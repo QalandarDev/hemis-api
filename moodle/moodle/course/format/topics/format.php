@@ -41,7 +41,6 @@ if ($topic = optional_param('topic', 0, PARAM_INT)) {
 $format = course_get_format($course);
 $course = $format->get_course();
 $context = context_course::instance($course->id);
-
 if (($marker >= 0) && has_capability('moodle/course:setcurrentsection', $context) && confirm_sesskey()) {
     $course->marker = $marker;
     course_set_marker($course->id, $marker);
@@ -51,10 +50,11 @@ if (($marker >= 0) && has_capability('moodle/course:setcurrentsection', $context
 course_create_sections_if_missing($course, 0);
 
 $renderer = $PAGE->get_renderer('format_topics');
-
 if (!is_null($displaysection)) {
     $format->set_sectionnum($displaysection);
 }
 $outputclass = $format->get_output_classname('content');
 $widget = new $outputclass($format);
+//var_dump($context);
+//print_r($widget);
 echo $renderer->render($widget);
