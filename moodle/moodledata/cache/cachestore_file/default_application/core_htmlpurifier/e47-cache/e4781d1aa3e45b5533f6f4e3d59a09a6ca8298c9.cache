@@ -1,1 +1,0 @@
-s:284:"<strong>Stack trace: </strong> <ul style="text-align:left;"><li>line 1124 of /lib/pagelib.php: coding_exception thrown</li><li>line 1550 of /lib/outputrenderers.php: call to moodle_page-&gt;set_state()</li><li>line 369 of /course/view.php: call to core_renderer-&gt;footer()</li></ul>";

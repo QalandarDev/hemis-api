@@ -1,1 +1,0 @@
-s:195:"<strong>Stack trace: </strong> <ul style="text-align:left;"><li>line 12 of /lib/hemis/dashboard.php: ArgumentCountError thrown</li><li>line 194 of /my/index.php: call to makeDashboard()</li></ul>";

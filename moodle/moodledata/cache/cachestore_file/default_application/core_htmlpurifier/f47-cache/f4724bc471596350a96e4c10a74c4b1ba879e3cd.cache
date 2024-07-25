@@ -1,1 +1,0 @@
-s:195:"<strong>Stack trace: </strong> <ul style="text-align:left;"><li>line 4047 of /lib/moodlelib.php: TypeError thrown</li><li>line 157 of /login/index.php: call to authenticate_user_login()</li></ul>";
