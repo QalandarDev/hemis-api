@@ -28,7 +28,7 @@ class HemisService
     /**
      * @throws ConnectionException
      */
-    public function     groupList($options)
+    public function groupList($options)
     {
 
         $items = $this->getFromHemis('/data/group-list', $options);
@@ -97,8 +97,14 @@ class HemisService
         $page = 1;
         $items = [];
         while (count($items) !== $totalCount) {
-            $response = Http::withHeader('Authorization', 'Bearer ' . self::ADMIN_TOKEN)
-                ->get(self::API_ENPOINT . $endpoint, array_merge($options, ['page' => $page]))->json();
+            try {
+                $response = Http::withHeader('Authorization', 'Bearer ' . self::ADMIN_TOKEN)
+                    ->get(self::API_ENPOINT . $endpoint, array_merge($options, ['page' => $page]))->json();
+            } catch (\Exception $e){
+                $response = Http::withHeader('Authorization', 'Bearer ' . self::ADMIN_TOKEN)
+                    ->get(self::API_ENPOINT . $endpoint, array_merge($options, ['page' => $page]))->json();
+            }
+
             $response = $response["data"];
             $pagination = $response['pagination'];
             $items = array_merge($items, $response['items']);

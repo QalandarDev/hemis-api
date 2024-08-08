@@ -4,12 +4,13 @@ namespace App\Services;
 
 
 use App\Enums\Functions;
+use http\Env;
 use Illuminate\Support\Facades\Http;
 
 class MoodleService
 {
-    const PATH = 'http://127.0.0.1:9090';
-    const TOKEN = '94a31662927926d07c5eecf0e4707225';
+    const PATH = "http://127.0.0.1:9090/";
+    const TOKEN = 'e3fec69c6a0c81a9cb91a7c48be487fb';
     const FORMAT = 'json';
     private string $baseurl;
 

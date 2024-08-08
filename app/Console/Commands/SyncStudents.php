@@ -58,7 +58,9 @@ class SyncStudents extends BaseCommands
                         }
                     }
                 }
+                echo "Sleep 1...".PHP_EOL;
             }
+            echo "Sleep 2...".PHP_EOL;
         }
     }
 }

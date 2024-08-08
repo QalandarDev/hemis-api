@@ -30,7 +30,16 @@ class SyncSubjects extends BaseCommands
     {
         $curriculums = $this->hemisService->curriculumList();
         foreach ($curriculums as $curriculum) {
-            $courseCategory = $this->moodleService->findCourseCategories(['name' => $curriculum['name']])[0];
+            if($curriculum['id']==10){
+                continue;
+            }
+
+            $courseCategory = @$this->moodleService->findCourseCategories(['name' => $curriculum['name']]);
+            if(is_array($courseCategory)&& array_key_exists(0, $courseCategory) && array_key_exists('id', $courseCategory[0])){
+                $courseCategory=$courseCategory[0];
+            }else{
+                continue;
+            }
             $subjects = $this->hemisService->curriculumSubjectList(['_curriculum' => $curriculum['id']]);
             foreach ($subjects as $subject) {
                 if ($this->moodleService->findCourseByName('curriculum=' . $curriculum['id'] . ';' . 'subject=' . $subject['subject']['id'] . ';')['total'] == 0) {
